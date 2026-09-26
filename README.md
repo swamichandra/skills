@@ -5,7 +5,7 @@ A growing collection of agent skills I build, refine, and use.
 Each skill is a self-contained capability designed to be understood by agents, executed in real workflows, tested for quality, and explicit about its boundaries.
 
 <p align="center">
-<img src="docs/dadloop-logo.png" alt="Logo" width="40%">
+<img src="logo.png" alt="Logo" width="40%">
 </p>
 
 ## Anatomy of a Skill
