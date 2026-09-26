@@ -1,0 +1,21 @@
+{
+  "state": {
+    "order_total_usd": 1840,
+    "customer_median_order_usd": 95,
+    "shipping_matches_billing": false,
+    "device_first_seen": true,
+    "orders_last_hour": 3,
+    "account_age_days": 4
+  },
+  "model": "jev-1.13.0",
+  "questions": {
+    "suspicious": {
+      "type": "noul",
+      "instructions": "Does this checkout look like it needs a fraud review before fulfillment?",
+      "criteria": {
+        "true": "Several signals together point to a possibly unauthorized purchase",
+        "false": "Consistent with a normal purchase by the account owner"
+      }
+    }
+  }
+}

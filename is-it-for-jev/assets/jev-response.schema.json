@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "is-it-for-jev/jev-response.schema.json",
+  "title": "TypeSafe Jev response (POST /v1/systemone)",
+  "description": "Response body, transcribed from docs.typesafe.ai/api (checked September 2026). Noul answers carry no confidence field; threshold the noul value itself.",
+  "type": "object",
+  "required": ["model", "answers", "usage"],
+  "properties": {
+    "model": { "description": "The model version that actually ran. Log it.", "type": "string" },
+    "answers": {
+      "type": "object",
+      "additionalProperties": {
+        "oneOf": [
+          { "$ref": "#/$defs/noul" },
+          { "$ref": "#/$defs/choice" },
+          { "$ref": "#/$defs/score" }
+        ]
+      }
+    },
+    "usage": {
+      "type": "object",
+      "required": ["input_tokens", "output_tokens"],
+      "properties": {
+        "input_tokens": { "type": "integer", "minimum": 0 },
+        "output_tokens": { "type": "integer", "minimum": 0 }
+      }
+    }
+  },
+  "$defs": {
+    "prob": { "type": "number", "minimum": 0, "maximum": 1 },
+    "noul": {
+      "type": "object",
+      "required": ["type", "noul"],
+      "properties": {
+        "type": { "const": "noul" },
+        "noul": { "$ref": "#/$defs/prob" }
+      }
+    },
+    "choice": {
+      "type": "object",
+      "required": ["type", "choice", "probabilities", "confidence"],
+      "properties": {
+        "type": { "const": "choice" },
+        "choice": { "type": "string" },
+        "probabilities": { "type": "object", "additionalProperties": { "$ref": "#/$defs/prob" } },
+        "confidence": { "$ref": "#/$defs/prob" }
+      }
+    },
+    "score": {
+      "type": "object",
+      "required": ["type", "score", "legend", "probabilities", "confidence"],
+      "properties": {
+        "type": { "const": "score" },
+        "score": { "description": "Probability-weighted level index; can fall between levels.", "type": "number", "minimum": 0 },
+        "legend": { "type": "object", "additionalProperties": { "type": "string" } },
+        "probabilities": { "type": "object", "additionalProperties": { "$ref": "#/$defs/prob" } },
+        "confidence": { "$ref": "#/$defs/prob" }
+      }
+    }
+  }
+}
