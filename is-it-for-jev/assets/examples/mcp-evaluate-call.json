@@ -1,0 +1,28 @@
+{
+  "note": "Arguments an agent sends to the `evaluate` tool of the community MCP server github.com/itsmostafa/typesafe-mcp, and the shape it returns. Same state and questions as the HTTP API; the server supplies the model and key. Shape taken from the project README, September 2026.",
+  "tool": "evaluate",
+  "arguments": {
+    "state": "Help! My payouts have been failing for 3 days.",
+    "questions": {
+      "is_urgent": { "type": "noul", "instructions": "Does this convey urgency?" },
+      "department": {
+        "type": "choice",
+        "instructions": "Which team should handle this?",
+        "criteria": {
+          "billing": "Payments, refunds",
+          "technical": "Bugs, outages",
+          "none_fits": "None of the teams above clearly fits"
+        }
+      }
+    }
+  },
+  "result": {
+    "answers": {
+      "is_urgent": { "type": "noul", "noul": 0.95 },
+      "department": {
+        "type": "choice", "choice": "billing", "confidence": 0.79,
+        "probabilities": { "billing": 0.86, "technical": 0.14, "none_fits": 0.0 }
+      }
+    }
+  }
+}

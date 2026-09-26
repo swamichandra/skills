@@ -1,0 +1,68 @@
+{
+  "state": {
+    "order": {
+      "created_at": "2026-09-25T18:42:17Z",
+      "amount_usd": 1200,
+      "shipping_method": "overnight",
+      "items": [
+        {
+          "name": "Premium Assorted Candy Gift Box",
+          "category": "candy",
+          "quantity": 8,
+          "unit_price_usd": 75
+        },
+        {
+          "name": "Deluxe Character Costume",
+          "category": "costumes",
+          "quantity": 4,
+          "unit_price_usd": 150
+        }
+      ]
+    },
+    "customer": {
+      "account_age_days": 18,
+      "previous_orders": 2,
+      "average_previous_order_usd": 71.75
+    },
+    "this_order_vs_history": {
+      "amount_multiple_of_average": 16.7,
+      "ships_to_new_address": true,
+      "ship_state_same_as_past_orders": true,
+      "shipping_matches_billing": false,
+      "shipping_address_changed_during_checkout": true
+    },
+    "session": {
+      "device_seen_before": true,
+      "ip_region_matches_shipping": true,
+      "vpn_or_proxy": false,
+      "session_minutes": 8
+    }
+  },
+  "model": "jev-1.13.0",
+  "questions": {
+    "resale_pattern": {
+      "type": "noul",
+      "instructions": "Do the quantities and mix of `order.items` look like buying for resale or reshipping rather than for personal or household use?",
+      "criteria": {
+        "true": "Bulk or uniform quantities typical of reselling, reshipping, or gift-card-style fraud",
+        "false": "Quantities a household or a single event would plausibly use"
+      }
+    },
+    "plausible_occasion": {
+      "type": "noul",
+      "instructions": "Given `order.created_at` and `order.items`, is there an ordinary seasonal or occasion-based reason for a household to place this order?",
+      "criteria": {
+        "true": "A holiday, party, or event fits both the items and the timing",
+        "false": "No ordinary occasion explains this combination at this time"
+      }
+    },
+    "not_account_owner": {
+      "type": "noul",
+      "instructions": "Do `this_order_vs_history` and `session` suggest that someone other than the usual account holder is placing this order?",
+      "criteria": {
+        "true": "Signs of a takeover or a stolen account, such as a redirected address combined with a changed pattern",
+        "false": "Consistent with the account holder buying for themselves or as a gift"
+      }
+    }
+  }
+}
